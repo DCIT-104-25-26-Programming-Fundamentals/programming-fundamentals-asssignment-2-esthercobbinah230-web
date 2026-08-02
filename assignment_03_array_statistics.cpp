@@ -42,3 +42,78 @@
 #include <iostream>
 using namespace std;
 
+int calculateSum(const int values[], int count)
+{
+    int sum = 0;
+    for (int i = 0; i < count; ++i)
+    {
+        sum += values[i];
+    }
+    return sum;
+}
+
+double calculateAverage(const int values[], int count)
+{
+    int sum = calculateSum(values, count);
+    return static_cast<double>(sum) / count;
+}
+
+int findMaximum(const int values[], int count)
+{
+    int maximum = values[0];
+    for (int i = 1; i < count; ++i)
+    {
+        if (values[i] > maximum)
+        {
+            maximum = values[i];
+        }
+    }
+    return maximum;
+}
+
+int findMinimum(const int values[], int count)
+{
+    int minimum = values[0];
+    for (int i = 1; i < count; ++i)
+    {
+        if (values[i] < minimum)
+        {
+            minimum = values[i];
+        }
+    }
+    return minimum;
+}
+
+int main()
+{
+    int count;
+    cout << "How many numbers? ";
+    cin >> count;
+
+    if (count <= 0)
+    {
+        cout << "Error: Number of values must be positive." << endl;
+        return 0;
+    }
+
+    int values[1000];
+    for (int i = 0; i < count; ++i)
+    {
+        cout << "Enter number " << (i + 1) << ": ";
+        cin >> values[i];
+    }
+
+    int sum = calculateSum(values, count);
+    double average = calculateAverage(values, count);
+    int maximum = findMaximum(values, count);
+    int minimum = findMinimum(values, count);
+
+    cout << "\nResults:" << endl;
+    cout << "Sum:     " << sum << endl;
+    cout << "Average: " << average << endl;
+    cout << "Maximum: " << maximum << endl;
+    cout << "Minimum: " << minimum << endl;
+
+    return 0;
+}
+

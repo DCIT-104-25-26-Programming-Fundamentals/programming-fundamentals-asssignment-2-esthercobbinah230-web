@@ -73,3 +73,149 @@
 #include <cmath>
 using namespace std;
 
+double add(double a, double b)
+{
+	return a + b;
+}
+
+double subtractNums(double a, double b)
+{
+	return a - b;
+}
+
+double multiply(double a, double b)
+{
+	return a * b;
+}
+
+bool divide(double a, double b, double &result)
+{
+	if (b == 0.0)
+		return false;
+	result = a / b;
+	return true;
+}
+
+bool modulus(int a, int b, int &result)
+{
+	if (b == 0)
+		return false;
+	result = a % b;
+	return true;
+}
+
+double exponentiate(double a, double b)
+{
+	return pow(a, b);
+}
+
+void showMenu()
+{
+	cout << "============================" << endl;
+	cout << "     SIMPLE CALCULATOR" << endl;
+	cout << "============================" << endl;
+	cout << "1. Addition" << endl;
+	cout << "2. Subtraction" << endl;
+	cout << "3. Multiplication" << endl;
+	cout << "4. Division" << endl;
+	cout << "5. Modulus" << endl;
+	cout << "6. Exponentiation" << endl;
+	cout << "7. Quit" << endl;
+	cout << "Select an operation (1-7): ";
+}
+
+int main()
+{
+	while (true)
+	{
+		showMenu();
+
+		int choice;
+		if (!(cin >> choice))
+		{
+			cout << "Invalid choice." << endl;
+			cin.clear();
+			string dummy;
+			getline(cin, dummy);
+			continue;
+		}
+
+		if (choice == 7)
+		{
+			cout << "Goodbye!" << endl;
+			break;
+		}
+
+		if (choice >=1 && choice <=6)
+		{
+			if (choice == 5) // modulus
+			{
+				int a, b;
+				cout << "Enter first integer: ";
+				if (!(cin >> a)) { cout << "Invalid number." << endl; cin.clear(); string d; getline(cin,d); continue; }
+				cout << "Enter second integer: ";
+				if (!(cin >> b)) { cout << "Invalid number." << endl; cin.clear(); string d; getline(cin,d); continue; }
+
+				int modRes;
+				if (!modulus(a, b, modRes))
+				{
+					cout << "Error: Cannot modulus by zero." << endl;
+				}
+				else
+				{
+					cout << "Result: " << a << " % " << b << " = " << modRes << endl;
+				}
+			}
+			else // other operations use double
+			{
+				double x, y;
+				cout << "Enter first number : ";
+				if (!(cin >> x)) { cout << "Invalid number." << endl; cin.clear(); string d; getline(cin,d); continue; }
+				cout << "Enter second number: ";
+				if (!(cin >> y)) { cout << "Invalid number." << endl; cin.clear(); string d; getline(cin,d); continue; }
+
+				cout << fixed << setprecision(2);
+				if (choice == 1)
+				{
+					double r = add(x,y);
+					cout << "Result: " << x << " + " << y << " = " << r << endl;
+				}
+				else if (choice == 2)
+				{
+					double r = subtractNums(x,y);
+					cout << "Result: " << x << " - " << y << " = " << r << endl;
+				}
+				else if (choice == 3)
+				{
+					double r = multiply(x,y);
+					cout << "Result: " << x << " * " << y << " = " << r << endl;
+				}
+				else if (choice == 4)
+				{
+					double r;
+					if (!divide(x,y,r))
+					{
+						cout << "Error: Cannot divide by zero." << endl;
+					}
+					else
+					{
+						cout << "Result: " << x << " / " << y << " = " << r << endl;
+					}
+				}
+				else if (choice == 6)
+				{
+					double r = exponentiate(x,y);
+					cout << "Result: " << x << " ^ " << y << " = " << r << endl;
+				}
+				cout << defaultfloat;
+			}
+		}
+		else
+		{
+			cout << "Invalid choice. Please enter 1-7." << endl;
+		}
+	}
+
+	return 0;
+}
+
